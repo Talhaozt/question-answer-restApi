@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A REST Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/console.css">
+</head>
+<body>
+    <div class="noise"></div>
+    <header class="topbar">
+        <div class="brand">
+            <span class="mark">QA</span>
+            <div>
+                <strong>Question Answer</strong>
+                <span>REST API Console</span>
+            </div>
+        </div>
+        <div class="env">
+            <span class="dot"></span>
+            <code id="baseUrl">/api</code>
+        </div>
+        <div class="token-box">
+            <label for="token">Bearer token</label>
+            <input id="token" type="text" placeholder="Paste JWT or login below" autocomplete="off">
+            <button id="clearToken" type="button" class="ghost">Clear</button>
+        </div>
+    </header>
+
+    <main class="shell">
+        <aside class="sidebar">
+            <p class="kicker">Resources</p>
+            <nav id="catalog"></nav>
+        </aside>
+
+        <section class="workspace">
+            <div class="request-card">
+                <div class="path-row">
+                    <span id="methodBadge" class="method GET">GET</span>
+                    <h1 id="endpointTitle">API root</h1>
+                </div>
+                <p id="endpointDesc" class="desc">Health check and resource map for this API.</p>
+                <code id="endpointPath" class="path">GET /api</code>
+
+                <form id="requestForm">
+                    <div id="fields" class="fields"></div>
+                    <div class="actions">
+                        <button type="submit" class="primary">Send request</button>
+                        <button type="button" id="copyCurl" class="ghost">Copy cURL</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="response-card">
+                <div class="response-meta">
+                    <span>Response</span>
+                    <span id="statusChip" class="chip">idle</span>
+                    <span id="timing" class="muted"></span>
+                </div>
+                <pre id="responseBody"><code>Ready. Select an endpoint and send a request against this server.</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="foot">
+        Express · MongoDB · JWT · Query middleware · Owner/admin authorization
+    </footer>
+    <script src="/js/console.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+:root {
+    --bg: #10120f;
+    --panel: #181b16;
+    --panel-2: #1f231c;
+    --line: #2c3228;
+    --text: #e7eadf;
+    --muted: #9aa392;
+    --mint: #b6f25c;
+    --mint-dim: #8cc63f;
+    --get: #7dd3a0;
+    --post: #7eb6ff;
+    --put: #e2b341;
+    --delete: #f07167;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Sora", sans-serif;
+}
+
+body {
+    background-image:
+        radial-gradient(circle at 12% -10%, rgba(182, 242, 92, 0.12), transparent 32%),
+        linear-gradient(180deg, #141711 0%, var(--bg) 40%);
+}
+
+.noise {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.topbar, .shell, .foot {
+    width: min(1280px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.topbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1.4fr;
+    gap: 16px;
+    align-items: center;
+    padding: 22px 0 10px;
+}
+
+.brand {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.mark {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    background: var(--mint);
+    color: #12140f;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+.brand strong { display: block; font-size: 15px; }
+.brand span { color: var(--muted); font-size: 12px; }
+
+.env, .token-box, .request-card, .response-card, .sidebar {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+.env {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--mint);
+    box-shadow: 0 0 10px var(--mint);
+}
+
+.token-box {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 10px;
+}
+
+.token-box label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+input, textarea, select, button {
+    font: inherit;
+}
+
+input, textarea {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+}
+
+.shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 16px;
+    padding: 16px 0 24px;
+    min-height: calc(100vh - 150px);
+}
+
+.sidebar {
+    padding: 16px 10px;
+    overflow: auto;
+}
+
+.kicker {
+    margin: 0 12px 10px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.group {
+    margin-bottom: 14px;
+}
+
+.group h2 {
+    margin: 0 12px 6px;
+    font-size: 12px;
+    color: #c5cbb8;
+}
+
+.endpoint {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--text);
+    text-align: left;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.endpoint:hover, .endpoint.active {
+    background: var(--panel-2);
+}
+
+.method {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    font-weight: 500;
+    min-width: 52px;
+    text-align: center;
+    padding: 3px 0;
+    border-radius: 6px;
+}
+
+.GET { color: #082714; background: var(--get); }
+.POST { color: #071828; background: var(--post); }
+.PUT { color: #2a1d04; background: var(--put); }
+.DELETE { color: #2a0907; background: var(--delete); }
+
+.workspace {
+    display: grid;
+    gap: 16px;
+}
+
+.request-card, .response-card {
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.path-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.desc {
+    color: var(--muted);
+    margin: 10px 0 0;
+    line-height: 1.5;
+}
+
+.path, code {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.path {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 10px;
+    background: #0c0e0b;
+    border-radius: 8px;
+    color: var(--mint);
+    font-size: 13px;
+}
+
+.fields {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 11px 14px;
+}
+
+.primary {
+    background: var(--mint);
+    color: #14170f;
+    font-weight: 600;
+}
+
+.ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+}
+
+.response-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.chip {
+    font-size: 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px 8px;
+}
+
+.chip.ok { color: var(--get); border-color: #2f5b40; }
+.chip.err { color: var(--delete); border-color: #6a2e2a; }
+
+.muted { color: var(--muted); font-size: 12px; }
+
+pre {
+    margin: 0;
+    background: #0c0e0b;
+    border-radius: 12px;
+    padding: 16px;
+    overflow: auto;
+    min-height: 220px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #d7decb;
+}
+
+.foot {
+    color: var(--muted);
+    font-size: 12px;
+    padding-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+    .topbar, .shell {
+        grid-template-columns: 1fr;
+    }
+    .token-box {
+        grid-template-columns: 1fr;
+    }
+}

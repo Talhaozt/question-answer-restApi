@@ -1,0 +1,824 @@
+{
+  "info": {
+    "_postman_id": "61e73b44-570d-4ad1-b292-3378cccc235c",
+    "name": "Question Answer REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58847403",
+    "_collection_link": "https://go.postman.co/collection/58847403-61e73b44-570d-4ad1-b292-3378cccc235c?source=collection_link",
+    "description": "Complete API collection for Question Answer REST API with JWT Authentication, Role-Based Access Control, Query Middleware, and Answer management."
+  },
+  "item": [
+    {
+      "name": "API Root & Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/api",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "api"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "Ask New Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"How does MongoDB indexing improve query performance?\",\n    \"content\": \"Can someone explain the difference between single field, compound, and multikey indexes in MongoDB?\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/questions/ask",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "ask"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/api/questions?page=1&limit=5&sortBy=most-liked",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "most-liked"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single Question",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/api/questions/5e302a02685d0667c54d42ea",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "5e302a02685d0667c54d42ea"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Question",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/questions/5e302a02685d0667c54d42ea/delete",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "5e302a02685d0667c54d42ea",
+                "delete"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Edit Question",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Updated: How does MongoDB indexing improve query performance?\",\n    \"content\": \"Updated explanation on execution stats and query plans with explain(\\\"executionStats\\\").\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/questions/5e302a02685d0667c54d42ea/edit",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "5e302a02685d0667c54d42ea",
+                "edit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unlike Question",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/questions/5e302a02685d0667c54d42ea/undo_like",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "5e302a02685d0667c54d42ea",
+                "undo_like"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Like a Question",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/questions/5e302a02685d0667c54d42ea/like",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "5e302a02685d0667c54d42ea",
+                "like"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response && response.acces_token) {",
+                  "    pm.environment.set(\"access_token\", response.acces_token);",
+                  "    pm.collectionVariables.set(\"access_token\", response.acces_token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Developer Candidate\",\n    \"email\": \"candidate@example.com\",\n    \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/auth/register",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Logged In Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/auth/profile",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response && response.acces_token) {",
+                  "    pm.environment.set(\"access_token\", response.acces_token);",
+                  "    pm.collectionVariables.set(\"access_token\", response.acces_token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"emretoker1212121212@gmail.com\",\n    \"password\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/auth/login",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"access_token\", \"\");",
+                  "pm.collectionVariables.set(\"access_token\", \"\");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/auth/logout",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Profile Image Upload",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "profile_image",
+                  "type": "file",
+                  "description": "Select an image file (jpeg, jpg, png, gif)"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{URL}}/api/auth/upload",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "upload"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"emretoker1212121212@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/auth/forgotpassword",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "forgotpassword"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password With Token",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"password\": \"newpassword123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/auth/resetpassword?resetPasswordToken={{resetPasswordToken}}",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "resetpassword"
+              ],
+              "query": [
+                {
+                  "key": "resetPasswordToken",
+                  "value": "{{resetPasswordToken}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Edit User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Emre Toker\",\n    \"title\": \"Full Stack Engineer\",\n    \"place\": \"Istanbul, Turkey\",\n    \"about\": \"Passionate about backend architectures and modern Node.js applications.\",\n    \"website\": \"https://github.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/auth/edit",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "edit"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get Single User By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/api/users/5e2866280427c1ff0dd2b5cb",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "5e2866280427c1ff0dd2b5cb"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/api/users?search=emre",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "mert"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Block / Unblock User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/admin/block/5e2effcccbdf585842cdb6ce",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "block",
+                "5e2effcccbdf585842cdb6ce"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/admin/user/5e2effcccbdf585842cdb6ce",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "user",
+                "5e2effcccbdf585842cdb6ce"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Answer",
+      "item": [
+        {
+          "name": "Get All Answers By Question",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/api/questions/5e302a02685d0667c54d42ea/answers",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "5e302a02685d0667c54d42ea",
+                "answers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Answer to Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"content\": \"Indexes in MongoDB create B-tree data structures that avoid full collection scans and dramatically speed up reads.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/questions/5e302a02685d0667c54d42ea/answers",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "5e302a02685d0667c54d42ea",
+                "answers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Answer",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/questions/6ad6113e95e645f854592ae4/answers/6ad6a006607504d00324c96b/delete",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "6ad6113e95e645f854592ae4",
+                "answers",
+                "6ad6a006607504d00324c96b",
+                "delete"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Edit Answer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"content\": \"Updated explanation on how compound indexes match query prefixes.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{URL}}/api/questions/6ad6113e95e645f854592ae4/answers/6ad67f73558c90f381e3a8c0/edit",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "6ad6113e95e645f854592ae4",
+                "answers",
+                "6ad67f73558c90f381e3a8c0",
+                "edit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single Answer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{URL}}/api/questions/6ad6113e95e645f854592ae4/answers/6ad67f73558c90f381e3a8c0",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "6ad6113e95e645f854592ae4",
+                "answers",
+                "6ad67f73558c90f381e3a8c0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unlike Answer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/questions/6ad6113e95e645f854592ae4/answers/6ad6a46309c78c09099eab9d/undoLike",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "6ad6113e95e645f854592ae4",
+                "answers",
+                "6ad6a46309c78c09099eab9d",
+                "undoLike"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Like Answer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{URL}}/api/questions/6ad6113e95e645f854592ae4/answers/6ad6a46309c78c09099eab9d/like",
+              "host": [
+                "{{URL}}"
+              ],
+              "path": [
+                "api",
+                "questions",
+                "6ad6113e95e645f854592ae4",
+                "answers",
+                "6ad6a46309c78c09099eab9d",
+                "like"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "URL",
+      "value": "http://localhost:5001",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
